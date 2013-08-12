@@ -2,6 +2,7 @@
 
 FIXME
 
+一个web作业，通过compojure
 ## Prerequisites
 
 You will need [Leiningen][1] 1.7.0 or above installed.
