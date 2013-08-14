@@ -1,13 +1,14 @@
-(ns hello_world.view.index
+(ns hello_world.view.template
 	(:use [hiccup core page]
 		  [hiccup.form]))
 
-(defn index-page []
+(defn template []
 	(html5
 		[:head
 		  [:title "Hello World"]
 		  (include-css "bootstrap/css/bootstrap.min.css")
 		  (include-css "bootstrap/css/bootstrap-responsive.min.css")
+		  (include-css "css/mycss.css")
 		  (include-js "bootstrap/js/jquery-2.0.2.min.js")
 		  (include-js "bootstrap/js/bootstrap.min.js")
 		  ]
@@ -27,7 +28,7 @@
 		          [:form.navbar-search.pull-left [:input.search-query.span2 {:type "text" :placeholder "Search"}]]
 		          [:div.nav-collapse.collapse]]]]
 		    [:div.container 
-		      (form-to [:post "/test"]
+		      [:form.form-signin {:method "POST" :action "/test"}
 		      	[:table
 		      	  [:tr
 		      	    [:td (label :user "Username")]
@@ -37,4 +38,4 @@
 		      	    [:td (password-field  :pwd)]]
 		      	  [:tr
 		      	    [:td]
-		      	    [:td [:button.btn.btn-primary {:type "submit"} "Log In"]]]])]]))
+		      	    [:td [:button.btn.btn-primary {:type "submit"} "Log In"]]]]]]]))
