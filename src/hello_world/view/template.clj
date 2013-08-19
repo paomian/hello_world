@@ -6,11 +6,11 @@
 	(html5
 		[:head
 		  [:title "Hello World"]
-		  (include-css "bootstrap/css/bootstrap.min.css")
+		  (include-css "http://libs.baidu.com/bootstrap/2.3.2/css/bootstrap.min.css")
 		  (include-css "bootstrap/css/bootstrap-responsive.min.css")
-		  (include-css "css/mycss.css")
-		  (include-js "bootstrap/js/jquery-2.0.2.min.js")
-		  (include-js "bootstrap/js/bootstrap.min.js")
+		  (include-css "bootstrap/css/mycss.css")
+		  (include-js "http://libs.baidu.com/jquery/2.0.0/jquery.js")
+		  (include-js "http://libs.baidu.com/bootstrap/2.0.4/js/bootstrap.min.js")
 		  ]
 		[:body
 		    [:div.navbar.navbar-inverse 

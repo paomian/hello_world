@@ -7,6 +7,10 @@
 
 (defroutes app-routes
   (GET "/" [] (template))
+  (GET "/user/:id" [id]
+       (str "<h1>Hello user " id "</h1>"))
+  (GET "/:foo" [foo]
+       (str "Foo = " foo))
   (route/resources "/")
   (route/not-found "Not Found"))
 
