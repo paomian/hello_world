@@ -9,8 +9,6 @@
      (include-css "http://libs.baidu.com/bootstrap/2.3.2/css/bootstrap.min.css")
      (include-css "bootstrap/css/bootstrap-responsive.min.css")
      (include-css "bootstrap/css/mycss.css")
-     (include-js "http://libs.baidu.com/jquery/2.0.0/jquery.js")
-     (include-js "http://libs.baidu.com/bootstrap/2.0.4/js/bootstrap.min.js")
      ]
     [:body
      [:div.navbar.navbar-inverse 
@@ -28,7 +26,7 @@
         [:form.navbar-search.pull-left [:input.search-query.span2 {:type "text" :placeholder "Search"}]]
         [:div.nav-collapse.collapse]]]]
      [:div.container 
-      [:form.form-signin {:method "POST" :action "/test"}
+      [:form.form-signin {:method "POST" :action "/user"}
        [:table
         [:tr
          [:td (label :user "Username")]
