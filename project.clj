@@ -5,7 +5,8 @@
   				 [hiccup "1.0.4"]
                  [compojure "1.1.5"]
                  [hickory "0.5.0"]
-                 [com.novemberain/monger "1.5.0"]]
+                 [com.novemberain/monger "1.5.0"]
+                 [ring "1.2.0"]]
   :plugins [[lein-ring "0.8.5"]]
   :ring {:handler hello_world.handler/app}
   :profiles
