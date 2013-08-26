@@ -4,15 +4,9 @@
    [hiccup.form]
    [hello_world.template         :only [template]]))
 (template index
-          `[:div.container 
-            [:form.form-signin {:method "POST" :action "/login"}
-             [:table
-              [:tr
-               [:td ~(label :user "Username")]
-               [:td ~(text-field :user)]]
-              [:tr
-               [:td ~(label :pwd "Password")]
-               [:td ~(password-field  :pwd)]]
-              [:tr
-               [:td]
-               [:td [:button.btn.btn-primary {:type "submit"} "Log In"]]]]]])
+          `[:div.container-narrow
+            [:hr]
+            [:div.jumbotron 
+             [:h1 "一个还没有投入运营的时时聊天的平台，完全运用web服务，只要一个可以用的浏览浏览器"]
+             [:p.lead "其实也没啥，现在就尼玛有个登陆注册，其他的什么都没有"]
+             [:a.btn.btn-large.btn-danger {:href "/login"} "登陆"]]])

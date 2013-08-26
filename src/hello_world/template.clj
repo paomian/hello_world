@@ -18,9 +18,9 @@
           [:a.btn.btn-navbar {:data-toggle "collapse" :data-target ".nav-collapse"}
            (for [x# (range 4)] 
              [:span.icon-bar])]
-          [:a.brand {:href "#"} "Porject name"]
+          [:a.brand {:href "/"} "Paomian"]
           [:ul.nav 
-           [:li [:a {:href "#"} "Home"]]
+           [:li [:a {:href "/"} "Home"]]
            [:li [:a {:href "#"} "Link"]]
            [:li [:a {:href "#"} "some"]]
            ]
