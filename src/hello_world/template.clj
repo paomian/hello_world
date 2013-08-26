@@ -31,7 +31,7 @@
              [:span.caret]]
             [:ul.dropdown-menu
              [:li [:a {:href "#"} "登陆"]]
-             [:li [:a {:href "#"} "注册"]]]]]]]]
+             [:li [:a {:href "/register"} "注册"]]]]]]]]
        ~code
        (include-js "bootstrap/js/jquery-2.0.2.min.js")
        (include-js "bootstrap/js/bootstrap.min.js")
