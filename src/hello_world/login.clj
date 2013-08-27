@@ -7,7 +7,8 @@
         [hiccup.form])
   (:import [org.jasypt.util.password StrongPasswordEncryptor])
   (:require 
-   [ring.util.response     :as response]))
+   [ring.util.response           :as response]
+   [noir.session                 :as session]))
 (connect!)
 (set-db! (get-db "hello"))
 (defn dologin [user pwd]
@@ -29,4 +30,8 @@
                [:td ~(password-field  :pwd)]]
               [:tr
                [:td]
-               [:td [:button.btn.btn-primary {:type "submit"} "Log In"]]]]]])
+               [:td [:button.btn.btn-primary {:type "submit"} "Log In"]]]
+              [:tr
+               [:td]
+               [:td
+               [:a {:href "/login/reset"} "忘记密码"]]]]]])

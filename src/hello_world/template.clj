@@ -7,8 +7,8 @@
      (html5
       [:head
        [:title "Hello World"]
-       (include-css "bootstrap/css/bootstrap.min.css")
-       (include-css "bootstrap/css/bootstrap-responsive.min.css")
+       (include-css "http://libs.baidu.com/bootstrap/2.3.2/css/bootstrap.min.css")
+       (include-css "http://libs.baidu.com/bootstrap/2.3.2/css/bootstrap-responsive.min.css")
        (include-css "bootstrap/css/mycss.css")
        ]
       [:body
@@ -33,6 +33,6 @@
              [:li [:a {:href "#"} "登陆"]]
              [:li [:a {:href "/register"} "注册"]]]]]]]]
        ~code
-       (include-js "bootstrap/js/jquery-2.0.2.min.js")
-       (include-js "bootstrap/js/bootstrap.min.js")
+       (include-js "http://libs.baidu.com/jquery/2.0.2/jquery.min.js")
+       (include-js "http://libs.baidu.com/bootstrap/2.3.2/js/bootstrap.min.js")
        ])))
