@@ -23,21 +23,21 @@
     )
     ))
 (template register
-          `[:div.container 
+          [:div.container 
             [:form.form-signin {:method "POST" :action "/register"}
              [:table
               [:tr
-               [:td ~(label :user "Username")]
-               [:td ~(text-field :user)]]
+               [:td (label :user "Username")]
+               [:td (text-field :user)]]
               [:tr
-               [:td ~(label :pwd "Password")]
-               [:td ~(password-field  :pwd)]]
+               [:td (label :pwd "Password")]
+               [:td (password-field  :pwd)]]
               [:tr
-               [:td ~(label :r-pwd "Repeat Password")]
-               [:td ~(password-field :r-pwd)]]
+               [:td (label :r-pwd "Repeat Password")]
+               [:td (password-field :r-pwd)]]
               [:tr
-               [:td ~(label :email "Email")]
-               [:td ~(text-field :email)]]
+               [:td (label :email "Email")]
+               [:td (text-field :email)]]
               [:tr
                [:td]
                [:td [:button.btn.btn-primary {:type "submit"} "Register"]]]]]])

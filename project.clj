@@ -10,6 +10,7 @@
                  [org.jasypt/jasypt "1.7"]
                  [lib-noir "0.6.6"]]
   :plugins [[lein-ring "0.8.5"]]
-  :ring {:handler hello_world.handler/app}
+  :ring {:handler hello_world.handler/app
+         :init hello_world.mongo/prepare-mongo}
   :profiles
   {:dev {:dependencies [[ring-mock "0.1.5"]]}})
