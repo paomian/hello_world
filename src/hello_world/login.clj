@@ -1,8 +1,7 @@
 (ns hello_world.login
-  (:use compojure.core
-        [monger.core             :only [connect! set-db! get-db]]
-        [monger.collection       :only [find-one-as-map update]]
+  (:use [compojure.core]
         [monger.operators]
+        [monger.collection       :only [find-one-as-map update]]
         [hello_world.template    :only [template]]
         [hiccup.form])
   (:import [org.jasypt.util.password StrongPasswordEncryptor])
@@ -15,7 +14,7 @@
                  (do (update "user" {:user user}  {$set {:last-login (java.util.Date.)}})
                      (session/put! :user user)
                      (response/redirect "/"))
-                 (response/redirect "/err-log"))
+        (response/redirect "/err-log"))
         (response/redirect "/err-log"))))
 (defn dologout []
   (do
@@ -37,4 +36,4 @@
              [:tr
               [:td]
               [:td
-               [:a {:href "/login/reset"} "忘记密码"]]]]]])
+               [:a {:href "/login/reset"} "密码重置"]]]]]])

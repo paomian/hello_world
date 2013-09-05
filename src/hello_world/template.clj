@@ -1,6 +1,7 @@
 (ns hello_world.template
   (:use [hiccup core page]
-        [hiccup.form])
+        [hiccup.form]
+        [monger.collection             :only [find-one-as-map]])
   (:require [noir.session              :as session]))
 
 (defn html-temp [code]
@@ -30,12 +31,13 @@
           [:div.btn-group.pull-right
            [:button.btn.dropdown-toggle.btn-primary {:data-toggle "dropdown" :href "#"} (if user (str user) "用户")
             [:span.caret]]
-           (if user
+           (if user 
              [:ul.dropdown-menu
-              [:li [:a {:href (str "/user/:" user)} "个人信息"]]
+              [:li [:a {:href (str "/user/" user)} "个人信息"]]
+              [:li [:a {:href "/login/reset"} "密码重置"]]
               [:li [:a {:href "/logout"} "注销"]]]
              [:ul.dropdown-menu
-              [:li [:a {:href "#"} "登陆"]]
+              [:li [:a {:href "/login"} "登陆"]]
               [:li [:a {:href "/register"} "注册"]]])
            ]]]]]
       code
