@@ -64,7 +64,10 @@
             [:td (str (:last-login result))]]
            [:tr
             [:td "register-time"]
-            [:td (str (:register-time result))]]]
+            [:td (str (:register-time result))]]
+           [:tr
+            [:td "username"]
+            [:td (str (:user result))]]]
           [:table
            [:tr
             [:td "user"]

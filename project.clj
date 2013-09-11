@@ -6,8 +6,9 @@
                  [compojure "1.1.5"]
                  [hickory "0.5.0"]
                  [com.novemberain/monger "1.5.0"]
-                 [ring "1.2.0"]
+                 [ring/ring-core "1.2.0"]
                  [org.jasypt/jasypt "1.7"]
+                 [http-kit "2.1.10"]
                  [lib-noir "0.6.6"]]
   :plugins [[lein-ring "0.8.5"]]
   :ring {:handler hello_world.handler/app

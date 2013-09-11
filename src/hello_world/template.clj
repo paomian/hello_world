@@ -22,9 +22,9 @@
             [:span.icon-bar])]
          [:a.brand {:href "/"} "Paomian"]
          [:ul.nav 
-          [:li [:a {:href "/"} "Home"]]
-          [:li [:a {:href "#"} "Link"]]
-          [:li [:a {:href "#"} "some"]]
+          [:li [:a {:href "/"} "主页"]]
+          [:li [:a {:href "http://sdutlinux.org/"} "技术支持"]]
+          [:li [:a {:href "http://gotit.asia/"} "got it"]]
           ]
          [:form.navbar-search.pull-left [:input.search-query.span2 {:type "text" :placeholder "Search"}]]
          [:div.nav-collapse.collapse
