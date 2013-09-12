@@ -11,8 +11,6 @@
    [monger.core             :only [connect connect! set-db! get-db]]
    [monger.collection       :only [insert insert-batch]]
    [hello_world.template    :only [template]]))
-(connect!)
-(set-db! (get-db "hello"))
 (defn doregister
   [user pwd r-pwd email]
   (if (and (= pwd r-pwd)

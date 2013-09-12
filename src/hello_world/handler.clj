@@ -4,12 +4,14 @@
         [hello_world.login           :only [dologin login-page dologout]]
         [hello_world.index           :only [index]]
         [hello_world.register        :only [doregister register]]
-        [hello_world.user            :only [info]]
+        [hello_world.user            :only [info dochange]]
         [hello_world.reset           :only [reset-page doreset]]
-        [hiccup.middleware           :only [wrap-base-url]])
+        [hiccup.middleware           :only [wrap-base-url]]
+        [org.httpkit.server          :only [run-server]])
   (:require [compojure.handler       :as handler]
             [compojure.route         :as route]
-            [noir.session            :as session]))
+            [noir.session            :as session]
+            [noir.cookies            :as cookies]))
 
 (defroutes app-routes
   (POST "/login" [user pwd]
@@ -25,6 +27,8 @@
         (doregister user pwd r-pwd email))
   (GET "/register" [] (register))
   (GET "/user/:user" [user] (info user))
+  (POST "/change" [email user douban weibo geren]
+        (dochange douban weibo geren))
   (GET "/" [] (index))
   (GET "/err-log" [] (err_log))
   (route/resources "/")
@@ -33,4 +37,7 @@
 (def app
   (-> (handler/site app-routes)
       (session/wrap-noir-session)
+      ;;(cookies/wrap-noir-cookies)
       (wrap-base-url)))
+(defn -main []
+  (run-server app {:port 8080}))
