@@ -1,6 +1,6 @@
 (ns hello_world.user 
   (:use
-    [monger.collection    :only [update]]
+    [monger.collection    :only [find-one-as-map update]]
     [hello_world.template :only [template]]
     [monger.operators]
     [hiccup core page]

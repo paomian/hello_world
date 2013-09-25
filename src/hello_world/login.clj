@@ -8,16 +8,19 @@
   (:require 
    [ring.util.response           :as response]
    [noir.session                 :as session]))
+(def userlist #{})
 (defn dologin [user pwd]
   (let [result (find-one-as-map "user" {:user user})]
     (if result (if (.checkPassword (StrongPasswordEncryptor.) pwd  (result :pwd))
                  (do (update "user" {:user user}  {$set {:last-login (java.util.Date.)}})
                      (session/put! :user user)
+                     #_(def userlist (conj userlist (:user result)))
                      (response/redirect "/"))
         (response/redirect "/err-log"))
         (response/redirect "/err-log"))))
 (defn dologout []
   (do
+    (def userlist (disj userlist (session/get :user)))
     (session/clear!)
     (response/redirect "/")))
 (template login-page  
