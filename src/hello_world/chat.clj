@@ -6,13 +6,14 @@
         [hiccup.page]))
 (template chat-page
           (list
-           (text-field :input)
-           (include-js "bootstrap/js/ws.js")))
+            [:div.container {:id "mydiv"}
+             (text-field :input)]
+            (include-js "bootstrap/js/ws.js")))
 (defn- now [] (quot (System/currentTimeMillis) 1000))
 (def clients (atom {}))
 (let [max-id (atom 0)]
-    (defn next-id []
-          (swap! max-id inc)))
+  (defn next-id []
+    (swap! max-id inc)))
 (defonce all-msgs (ref [{:id (next-id),        ; all message, in a list
                          :time (now)
                          :msg "this is a live chatroom, have fun",
@@ -22,22 +23,22 @@
     (when (:msg data)
       (let [data (merge data {:time (now) :id (next-id)})]
         (dosync
-         (let [all-msgs* (conj @all-msgs data)
-               total (count all-msgs*)]
-           (if (> total 100)
-             (ref-set all-msgs (vec (drop (- total 100) all-msgs*)))
-             (ref-set all-msgs all-msgs*))))))
+          (let [all-msgs* (conj @all-msgs data)
+                total (count all-msgs*)]
+            (if (> total 100)
+              (ref-set all-msgs (vec (drop (- total 100) all-msgs*)))
+              (ref-set all-msgs all-msgs*))))))
     (doseq [client (keys @clients)]
       ;; send all, client will filter them
       (send! client (json-str @all-msgs)))))
 (defn chat [req]
   (with-channel req channel
-    (swap! clients assoc channel true)
-    (on-receive channel #'mesg-received)
-    (on-close channel (fn [status]
-                        (swap! clients dissoc channel)))))
+                (swap! clients assoc channel true)
+                (on-receive channel #'mesg-received)
+                (on-close channel (fn [status]
+                                    (swap! clients dissoc channel)))))
 #_(run-server chat {:port 9090})
 #_(template chat-page
             (list
-             (text-field :input)
-             (include-js "bootstarp/js/ws.js")))
+              (text-field :input)
+              (include-js "bootstarp/js/ws.js")))
