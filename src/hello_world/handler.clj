@@ -6,8 +6,8 @@
         [hello_world.register        :only [doregister register]]
         [hello_world.user            :only [info dochange]]
         [hello_world.reset           :only [reset-page doreset]]
-        [hello_world.chat            :only [chat chat-page]]
-        [ hello_world.mongo          :only [prepare-mongo]]
+        [hello_world.chat            :only [chat chat-page chat-check]]
+        [hello_world.mongo           :only [prepare-mongo]]
         [hiccup.middleware           :only [wrap-base-url]]
         [org.httpkit.server          :only [run-server]])
   (:require [compojure.handler       :as handler]
@@ -32,7 +32,7 @@
   (GET "/user/:user" [user] (info user))
 ;;ws
   (GET "/ws" [] chat)
-  (GET "/chat" [] (chat-page))
+  (GET "/chat" [] (chat-check))
   (POST "/change" [email user douban weibo geren]
         (dochange douban weibo geren))
   (GET "/" [] (index))
@@ -43,8 +43,7 @@
 (def app
   (-> (handler/site app-routes)
     (session/wrap-noir-session)
-    ;;(cookies/wrap-noir-cookies)
-    (wrap-base-url)))
+    (cookies/wrap-noir-cookies)))
 (def in-dev? true)
 (defn -main [& args]
   (let [handler (if in-dev?

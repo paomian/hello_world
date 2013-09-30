@@ -3,12 +3,20 @@
         [hello_world.template                :only [template]]
         [clojure.data.json                   :only [json-str read-json]]
         [hiccup.form]
-        [hiccup.page]))
+        [hiccup.page])
+  (:require
+    [noir.session                           :as session]
+    [ring.util.response                     :as response]))
 (template chat-page
           (list
             [:div.container {:id "mydiv"}
              (text-field :input)]
             (include-js "bootstrap/js/ws.js")))
+(defn chat-check []
+  (let [user (session/get :user)]
+    (if user
+      (chat-page)
+      (response/redirect "/login"))))
 (defn- now [] (quot (System/currentTimeMillis) 1000))
 (def clients (atom {}))
 (let [max-id (atom 0)]
@@ -21,7 +29,7 @@
 (defn mesg-received [msg]
   (let [data (read-json msg)]
     (when (:msg data)
-      (let [data (merge data {:time (now) :id (next-id)})]
+      (let [data (merge data {:time (now) :id (next-id) :author (session/get :user)})]
         (dosync
           (let [all-msgs* (conj @all-msgs data)
                 total (count all-msgs*)]
