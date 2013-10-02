@@ -11,6 +11,7 @@
                  [http-kit "2.1.10"]
                  [lib-noir "0.6.6"]
                  [org.clojure/data.json "0.2.3"]
+                 [com.taoensso/carmine "2.2.2"]
                  ]
   :plugins [[lein-ring "0.8.5"]]
   :ring {:handler hello_world.handler/app

@@ -6,23 +6,31 @@
         [hiccup.form])
   (:import [org.jasypt.util.password StrongPasswordEncryptor])
   (:require 
-   [ring.util.response           :as response]
-   [noir.session                 :as session]))
-(def userlist #{})
+    [ring.util.response           :as response]
+    [noir.cookies                 :as cookies]
+    [noir.session                 :as session]))
+(def ^:dynamic *userlist* (atom #{}))
 (defn dologin [user pwd]
   (let [result (find-one-as-map "user" {:user user})]
     (if result (if (.checkPassword (StrongPasswordEncryptor.) pwd  (result :pwd))
                  (do (update "user" {:user user}  {$set {:last-login (java.util.Date.)}})
-                     (session/put! :user user)
-                     #_(def userlist (conj userlist (:user result)))
-                     (response/redirect "/"))
-        (response/redirect "/err-log"))
-        (response/redirect "/err-log"))))
+                   (session/put! :user user)
+                   (cookies/put! :user user)
+                   (swap! *userlist* conj user)
+                   (response/redirect "/"))
+                 (response/redirect "/err-log"))
+      (response/redirect "/err-log"))))
 (defn dologout []
   (do
-    (def userlist (disj userlist (session/get :user)))
+    (swap! *userlist* disj (session/get :user))
     (session/clear!)
     (response/redirect "/")))
+(defn check-user [user]
+  (if (get @*userlist* user)
+    true
+    false))
+(defn userlist []
+  (println "当前用户列表：" @*userlist*))
 (template login-page  
           [:div.container 
            [:form.form-signin {:method "POST" :action "/login"}

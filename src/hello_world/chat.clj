@@ -1,11 +1,13 @@
 (ns hello_world.chat
   (:use org.httpkit.server
         [hello_world.template                :only [template]]
+        [hello_world.login                   :only [check-user userlist]]
         [clojure.data.json                   :only [json-str read-json]]
         [hiccup.form]
         [hiccup.page])
   (:require
     [noir.session                           :as session]
+    [noir.cookies                            :as cookies]
     [ring.util.response                     :as response]))
 (template chat-page
           (list
@@ -29,7 +31,7 @@
 (defn mesg-received [msg]
   (let [data (read-json msg)]
     (when (:msg data)
-      (let [data (merge data {:time (now) :id (next-id) :author (session/get :user)})]
+      (let [data (merge data {:time (now) :id (next-id)})]
         (dosync
           (let [all-msgs* (conj @all-msgs data)
                 total (count all-msgs*)]
@@ -38,15 +40,18 @@
               (ref-set all-msgs all-msgs*))))))
     (doseq [client (keys @clients)]
       ;; send all, client will filter them
-      (send! client (json-str @all-msgs)))))
+      (if (:msg data)
+        (send! client (json-str @all-msgs))
+        (if (:now data)
+          (send! client (json-str {:statu "Heartbeat success"})))))))
 (defn chat [req]
-  (with-channel req channel
-                (swap! clients assoc channel true)
-                (on-receive channel #'mesg-received)
-                (on-close channel (fn [status]
-                                    (swap! clients dissoc channel)))))
-#_(run-server chat {:port 9090})
-#_(template chat-page
-            (list
-              (text-field :input)
-              (include-js "bootstarp/js/ws.js")))
+  (userlist)
+  (println "请求连接用户：" (check-user (:value (get (:cookies req) "user"))))
+  (if 
+    true
+    #_(check-user (:value (get (:cookies req) "user")))
+    (with-channel req channel
+                  (swap! clients assoc channel true)
+                  (on-receive channel #'mesg-received)
+                  (on-close channel (fn [status]
+                                      (swap! clients dissoc channel))))))
