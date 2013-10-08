@@ -29,7 +29,7 @@
   (if (get @*userlist* user)
     true
     false))
-(defn userlist []
+(defn show-userlist []
   (println "当前用户列表：" @*userlist*))
 (template login-page  
           [:div.container 

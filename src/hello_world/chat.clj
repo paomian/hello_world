@@ -1,7 +1,7 @@
 (ns hello_world.chat
   (:use org.httpkit.server
         [hello_world.template                :only [template]]
-        [hello_world.login                   :only [check-user userlist]]
+        [hello_world.login                   :only [check-user show-userlist]]
         [clojure.data.json                   :only [json-str read-json]]
         [hiccup.form]
         [hiccup.page])
@@ -45,13 +45,14 @@
         (if (:now data)
           (send! client (json-str {:statu "Heartbeat success"})))))))
 (defn chat [req]
-  (userlist)
-  (println "请求连接用户：" (check-user (:value (get (:cookies req) "user"))))
+  (show-userlist)
+  (println "请求连接用户：" (:value (get (:cookies req) "user")))
   (if 
     true
     #_(check-user (:value (get (:cookies req) "user")))
     (with-channel req channel
                   (swap! clients assoc channel true)
+                  (println "clients" @clients)
                   (on-receive channel #'mesg-received)
                   (on-close channel (fn [status]
                                       (swap! clients dissoc channel))))))
