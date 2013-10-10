@@ -11,7 +11,7 @@
       [:title "Hello World"]
       (include-css "http://libs.baidu.com/bootstrap/2.3.2/css/bootstrap.min.css")
       (include-css "http://libs.baidu.com/bootstrap/2.3.2/css/bootstrap-responsive.min.css")
-      (include-css "bootstrap/css/mycss.css")
+      (include-css "mycss.css")
       ]
      [:body
       [:div.navbar.navbar-inverse 
