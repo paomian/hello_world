@@ -7,6 +7,7 @@
     [hiccup.form]
     )
   (:require [noir.session         :as session]
+            [noir.cookies         :as cookies]
             [ring.util.response   :as response])
   (:import [org.bson.types ObjectId]
            [com.mongodb DB WriteConcern]))
@@ -92,5 +93,6 @@
 (defn dochange "doc-string" [nickname douban weibo geren]
   (let [suser (session/get :user)]
     (do
-      (update "user" {:user suser} {$set {:nickname nickname :douban douban :weibo weibo :geren geren}})
+      (future (update "user" {:user suser} {$set {:nickname nickname :douban douban :weibo weibo :geren geren}}))
+      (cookies/put! :nickname nickname)
       (response/redirect (str "/user/" suser)))))

@@ -13,7 +13,7 @@
           (list
             [:div.container {:id "mydiv"}
              (text-field :input)]
-            (include-js "bootstrap/js/ws.js")))
+            (include-js "ws.js")))
 (defn chat-check []
   (let [user (session/get :user)]
     (if user

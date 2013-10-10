@@ -34,7 +34,7 @@ window.onload = function () {
     };
     input.onchange = function () {
         var msg = input.value;
-        socket.send(JSON.stringify({"user":getk("nickname"),"msg":msg}));
+        socket.send(JSON.stringify({"user":decodeURI(getk("nickname")),"msg":msg}));
         input.value = "";
     };
     setInterval(function() {
