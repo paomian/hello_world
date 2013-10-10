@@ -31,7 +31,7 @@ To start a web server for the application, run:
 
     2 密码找回，密码重置
     
-    3 添加 删除好友 好友分组
+    3 添加 删除好友 好友分组(测试)
 
 ## License
 

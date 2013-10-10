@@ -27,7 +27,7 @@
 (defonce all-msgs (ref [{:id (next-id),        ; all message, in a list
                          :time (now)
                          :msg "this is a live chatroom, have fun",
-                         :author "system"}]))
+                         :user "system"}]))
 (defn mesg-received [msg]
   (let [data (read-json msg)]
     (when (:msg data)
@@ -41,18 +41,21 @@
     (doseq [client (keys @clients)]
       ;; send all, client will filter them
       (if (:msg data)
-        (send! client (json-str @all-msgs))
+        (list
+          (send! client (json-str data))
+          (println data))
         (if (:now data)
           (send! client (json-str {:statu "Heartbeat success"})))))))
 (defn chat [req]
   (show-userlist)
   (println "请求连接用户：" (:value (get (:cookies req) "user")))
   (if 
-    true
-    #_(check-user (:value (get (:cookies req) "user")))
+    (check-user (:value (get (:cookies req) "user")))
     (with-channel req channel
                   (swap! clients assoc channel true)
                   (println "clients" @clients)
                   (on-receive channel #'mesg-received)
                   (on-close channel (fn [status]
-                                      (swap! clients dissoc channel))))))
+                                      (swap! clients dissoc channel)
+                                      (println channel "closed,status" status)))
+                  )))

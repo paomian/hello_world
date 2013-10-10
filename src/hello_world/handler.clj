@@ -33,8 +33,8 @@
 ;;ws
   (GET "/ws" [] chat)
   (GET "/chat" [] (chat-check))
-  (POST "/change" [email user douban weibo geren]
-        (dochange douban weibo geren))
+  (POST "/change" [email user nickname douban weibo geren]
+        (dochange nickname douban weibo geren))
   (GET "/" [] (index))
   (GET "/err-log" [] (err_log))
   (route/resources "/")

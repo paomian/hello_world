@@ -18,7 +18,7 @@
            #_(if (is-email? email) true ())
            ()) ;;验证重名问题
     (do 
-      (insert "user" {:_id (ObjectId.) :user user :pwd (.encryptPassword (StrongPasswordEncryptor.) pwd) :email email :register-time (java.util.Date.)})
+      (future (insert "user" {:_id (ObjectId.) :user user :pwd (.encryptPassword (StrongPasswordEncryptor.) pwd) :email email :register-time (java.util.Date.)}))
       (response/redirect "/")
       )
     ))

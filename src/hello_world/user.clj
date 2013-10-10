@@ -66,7 +66,8 @@
              [:table
               (for [[name label-name & [nchange]]
                     [["邮箱" :email true]
-                     ["昵称" :user true]
+                     ["用户" :user true]
+                     ["昵称" :nickname]
                      ["豆瓣" :douban]
                      ["微博" :weibo]]]
                 [:tr
@@ -88,8 +89,8 @@
                 [:td (str (label-name result))]])]]))
        (include-js "http://libs.baidu.com/jquery/2.0.2/jquery.min.js")
        (include-js "http://libs.baidu.com/bootstrap/2.3.2/js/bootstrap.min.js")])))
-(defn dochange "doc-string" [douban weibo geren]
+(defn dochange "doc-string" [nickname douban weibo geren]
   (let [suser (session/get :user)]
     (do
-      (update "user" {:user suser} {$set {:douban douban :weibo weibo :geren geren}})
+      (update "user" {:user suser} {$set {:nickname nickname :douban douban :weibo weibo :geren geren}})
       (response/redirect (str "/user/" suser)))))
