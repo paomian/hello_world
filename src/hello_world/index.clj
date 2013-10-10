@@ -14,4 +14,6 @@
             (let [user (session/get :user)]
               (if user 
                 [:a.btn.btn-large.btn-danger {:href "/chat"} "聊天"]
-                [:a.btn.btn-large.btn-danger {:href "/login"} "登陆"]))]])
+                (list
+                  [:a#login.btn.btn-large.btn-danger {:href "/login"} "登陆"]
+                  [:a.btn.btn-large.btn-danger {:href "/register"} "注册"])))]])
