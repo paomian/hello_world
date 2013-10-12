@@ -14,15 +14,16 @@
   (println "当前用户列表：" @*userlist*))
 (defn dologin [user pwd]
   (let [result (find-one-as-map "user" {:user user})]
-    (if result (if (.checkPassword (StrongPasswordEncryptor.) pwd  (result :pwd))
-                 (do (update "user" {:user user}  {$set {:last-login (java.util.Date.)}})
-                   (session/put! :user user)
-                   (cookies/put! :user user)
-                   (cookies/put! :nickname (:nickname result))
-                   (swap! *userlist* conj user)
-                   (show-userlist)
-                   (response/redirect "/"))
-                 (response/redirect "/err-log"))
+    (if result
+      (if (.checkPassword (StrongPasswordEncryptor.) pwd  (result :pwd))
+        (do (update "user" {:user user}  {$set {:last-login (java.util.Date.)}})
+          (session/put! :user user)
+          (cookies/put! :user user)
+          (cookies/put! :nickname (:nickname result))
+          (swap! *userlist* conj user)
+          (show-userlist)
+          (response/redirect "/"))
+        (response/redirect "/err-log"))
       (response/redirect "/err-log"))))
 
 (defn dologout []
