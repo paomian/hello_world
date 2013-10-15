@@ -8,10 +8,10 @@
                  [com.novemberain/monger "1.5.0"]
                  [ring/ring-core "1.2.0"]
                  [org.jasypt/jasypt "1.7"]
-                 [http-kit "2.1.10"]
+                 [http-kit "2.1.12"]
                  [lib-noir "0.6.6"]
                  [org.clojure/data.json "0.2.3"]
-                 [com.taoensso/carmine "2.2.2"]
+                 [com.taoensso/carmine "2.3.0"]
                  ]
   :plugins [[lein-ring "0.8.5"]]
   :ring {:handler hello_world.handler/app
